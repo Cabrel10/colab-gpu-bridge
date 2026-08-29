@@ -104,6 +104,17 @@ def test_cloudflare_heartbeat_and_keepalive_are_automatic():
     assert '"status": "READY"' in text
 
 
+def test_heartbeat_reloads_and_validates_the_live_tunnel_url():
+    text = code_text()
+    assert 'Path("cloudflare_url.txt")' in text
+    assert 'ROOT / "cloudflare_url.txt"' in text
+    assert 'globals().get("PUBLIC_URL") or globals().get("public_url")' in text
+    assert 'url + "/v1/models"' in text
+    assert "validate_tunnel(PUBLIC_URL)" in text
+    assert "PUBLIC_URL = resolve_public_url()" in text
+    assert "survival-border-away-favors" not in text
+
+
 def test_opencode_configuration_is_valid_and_secret_free():
     config = json.loads(OPENCODE_CONFIG.read_text())
     assert config["model"] == "ravenx/ravenx-chaos-agent-qwen3.8-27b"
