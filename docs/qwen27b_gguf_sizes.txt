@@ -1,0 +1,59 @@
+# Qwen3.8-27B GGUF real file sizes
+# Source: huggingface.co/api/models/unsloth/Qwen3.8-27B-GGUF/tree/main
+# Snapshot date: $(python3 -c 'import datetime;print(datetime.date.today())')
+# Total GGUF entries: 25 | Distinct quantizations: 24
+
+QUANT                                  GB  PARTS
+-------------------------------------------------------
+mmproj-F16                          0.86   1
+mmproj-BF16                         0.87   1
+Qwen3.8-27B-UD-IQ2_XXS              8.39   1
+Qwen3.8-27B-UD-IQ2_M                9.61   1
+Qwen3.8-27B-UD-Q2_K_XL              9.94   1
+Qwen3.8-27B-UD-IQ3_XXS             11.10   1
+Qwen3.8-27B-Q3_K_S                 11.71   1
+Qwen3.8-27B-UD-Q3_K_XL             12.52   1
+Qwen3.8-27B-Q3_K_M                 12.87   1
+Qwen3.8-27B-IQ4_XS                 14.63   1
+Qwen3.8-27B-Q4_0                   14.95   1
+Qwen3.8-27B-Q4_K_S                 15.01   1
+Qwen3.8-27B-IQ4_NL                 15.22   1
+Qwen3.8-27B-Q4_K_M                 15.93   1
+Qwen3.8-27B-Q4_1                   16.34   1
+Qwen3.8-27B-UD-Q4_K_XL             16.69   1
+Qwen3.8-27B-Q5_K_S                 17.95   1
+Qwen3.8-27B-Q5_K_M                 18.47   1
+Qwen3.8-27B-UD-Q5_K_XL             18.83   1
+Qwen3.8-27B-Q6_K                   21.31   1
+Qwen3.8-27B-UD-Q6_K_XL             24.14   1
+Qwen3.8-27B-Q8_0                   27.05   1
+Qwen3.8-27B-UD-Q8_K_XL             29.30   1
+Qwen3.8-27B-BF16                   50.90   2
+
+## Kaggle 20 GB constraint filter
+  ✓ mmproj-F16                       0.86 GB
+  ✓ mmproj-BF16                      0.87 GB
+  ✓ Qwen3.8-27B-UD-IQ2_XXS           8.39 GB
+  ✓ Qwen3.8-27B-UD-IQ2_M             9.61 GB
+  ✓ Qwen3.8-27B-UD-Q2_K_XL           9.94 GB
+  ✓ Qwen3.8-27B-UD-IQ3_XXS           11.10 GB
+  ✓ Qwen3.8-27B-Q3_K_S               11.71 GB
+  ✓ Qwen3.8-27B-UD-Q3_K_XL           12.52 GB
+  ✓ Qwen3.8-27B-Q3_K_M               12.87 GB
+  ✓ Qwen3.8-27B-IQ4_XS               14.63 GB
+  ✓ Qwen3.8-27B-Q4_0                 14.95 GB
+  ✓ Qwen3.8-27B-Q4_K_S               15.01 GB
+  ✓ Qwen3.8-27B-IQ4_NL               15.22 GB
+  ✓ Qwen3.8-27B-Q4_K_M               15.93 GB
+  ✓ Qwen3.8-27B-Q4_1                 16.34 GB
+  ✓ Qwen3.8-27B-UD-Q4_K_XL           16.69 GB
+  ✓ Qwen3.8-27B-Q5_K_S               17.95 GB
+  ✓ Qwen3.8-27B-Q5_K_M               18.47 GB
+  ✓ Qwen3.8-27B-UD-Q5_K_XL           18.83 GB
+
+## Recommendation: Qwen3.8-27B-IQ4_XS (Unsloth)
+  - File size: 14.63 GB
+  - On Kaggle 20 GB: 5.37 GB free for runtime/dependencies
+  - On Google Drive: full 15 GB used by single .gguf
+  - VRAM target: 16 GB GPU with quantized KV cache
+  - Loaded via: llama.cpp server or ollama (run on Colab)
