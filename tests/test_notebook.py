@@ -36,6 +36,22 @@ def test_notebook_structure_and_syntax():
         ast.parse(source)
 
 
+def test_drive_cache_and_parallel_cold_start():
+    text = code_text()
+    assert 'drive.mount("/content/drive")' in text
+    assert 'Path("/content/drive/MyDrive/colab_llm_cache")' in text
+    assert 'os.environ["PIP_CACHE_DIR"] = str(PIP_CACHE)' in text
+    assert "FAST_PATH = DRIVE_MODEL.is_file() and DRIVE_MODEL.stat().st_size == EXPECTED_SIZE" in text
+    assert "ThreadPoolExecutor(max_workers=2" in text
+    assert "pool.submit(install_runtime)" in text
+    assert "pool.submit(stage_model)" in text
+    assert '"-C", "-"' in text
+    assert "if partial.stat().st_size != EXPECTED_SIZE" in text
+    assert text.index("if partial.stat().st_size != EXPECTED_SIZE") < text.index(
+        "shutil.copy2(LOCAL_MODEL, DRIVE_MODEL)"
+    )
+
+
 def test_single_exact_model_and_single_python_instance():
     text = code_text()
     assert "RavenX-Chaos-Agent-Q4_K_M.gguf" in text
@@ -138,6 +154,8 @@ def test_opencode_configuration_is_valid_and_secret_free():
 def test_readme_documents_colab_opencode_ssh_and_mcp():
     text = README.read_text()
     assert "colab.research.google.com/github/Cabrel10/colab-gpu-bridge" in text
+    assert "Google Drive" in text
+    assert "ThreadPoolExecutor" in text
     assert "opencode . --model ravenx/ravenx-chaos-agent-qwen3.8-27b" in text
     assert "ssh user@vps" in text
     assert "opencode mcp list" in text

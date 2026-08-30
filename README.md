@@ -21,6 +21,20 @@ Le notebook diagnostique T4/L4/A100/H100, installe `llama-cpp-python` avec CUDA,
 
 Le tunnel `trycloudflare.com` est temporaire : relancer Colab produit généralement une nouvelle URL. Le heartbeat permet au VPS de recevoir cette URL.
 
+## Cache Google Drive et cold start parallèle
+
+Le notebook monte `MyDrive/colab_llm_cache` et y conserve deux caches persistants :
+
+- le GGUF, accepté uniquement si sa taille exacte est `16 547 399 968` octets ;
+- le cache `pip`, réutilisé par les sessions Colab suivantes.
+
+Pendant le démarrage, un `ThreadPoolExecutor(max_workers=2)` lance simultanément :
+
+1. l'installation de l'environnement CUDA et des dépendances Python ;
+2. la copie du GGUF depuis Drive, ou son téléchargement avec reprise (`curl -C -`) lors de la première session.
+
+Le fichier partiel n'est déplacé vers le chemin actif puis copié dans Drive qu'après validation de sa taille. La première session reste contrainte par l'installation et le téléchargement ; les suivantes suivent le fast path Drive et évitent de télécharger à nouveau les 15 Go. Les durées restent indicatives et dépendent du débit Drive, du GPU attribué et de la disponibilité des wheels CUDA.
+
 ## Modèle et dataset examiné
 
 - Dépôt d'inférence : `deadbydawn101/RavenXAiLabs-Chaos-Agent-Qwen3.8-27B-Frontier-Intelligence-Injected-OBLITERATED-GGUF`
